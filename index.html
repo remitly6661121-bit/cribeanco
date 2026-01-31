@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cobroscaribian | Blog informativo sobre Colombia</title>
+  <meta name="description" content="Cobroscaribian es un blog informativo sobre Colombia: cultura, economía, regiones, turismo responsable, historia y actualidad explicada con rigor." />
+  <meta name="robots" content="index,follow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --col-yellow:#F7D417;
+      --col-blue:#0038A8;
+      --col-red:#CE1126;
+
+      --ink:#0B1220;
+      --muted:#5B6475;
+      --bg:#0A0F1B;
+      --paper:#FFFFFF;
+      --surface:#F6F7FB;
+      --line:rgba(17,24,39,.12);
+      --shadow: 0 10px 30px rgba(2,6,23,.10);
+      --shadow-soft: 0 8px 20px rgba(2,6,23,.08);
+
+      --radius-xl: 22px;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+
+      --max: 1180px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background: radial-gradient(1200px 800px at 10% 10%, rgba(0,56,168,.08), transparent 60%),
+                  radial-gradient(900px 600px at 90% 20%, rgba(206,17,38,.08), transparent 55%),
+                  radial-gradient(900px 700px at 40% 95%, rgba(247,212,23,.10), transparent 55%),
+                  #F2F4FA;
+      line-height: 1.55;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    p{ margin: 0 0 12px; color: var(--muted); }
+    h1,h2,h3{ margin:0; letter-spacing:-0.02em; }
+    h1{ font-size: clamp(28px, 4vw, 44px); line-height:1.08; }
+    h2{ font-size: clamp(22px, 2.4vw, 30px); }
+    h3{ font-size: 16px; }
+
+    .wrap{
+      width:min(var(--max), calc(100% - 40px));
+      margin:0 auto;
+    }
+
+    /* Topbar */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(242,244,250,.75);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      padding: 14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 220px;
+    }
+    .mark{
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      box-shadow: var(--shadow-soft);
+      background:
+        linear-gradient(135deg, rgba(247,212,23,1) 0 33%,
+                              rgba(0,56,168,1) 33% 66%,
+                              rgba(206,17,38,1) 66% 100%);
+      position: relative;
+      overflow:hidden;
+    }
+    .mark::after{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), transparent 55%);
+      transform: rotate(18deg);
+    }
+    .brand strong{ font-weight:800; }
+    .brand small{ display:block; color:var(--muted); font-size:12px; margin-top:2px; }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+    }
+    .nav a{
+      padding:10px 12px;
+      border-radius: 12px;
+      color: rgba(11,18,32,.85);
+      font-weight:600;
+      font-size: 13px;
+      transition: .2s ease;
+    }
+    .nav a:hover{
+      background: rgba(0,56,168,.06);
+      color: var(--ink);
+    }
+    .nav a.active{
+      background: rgba(0,56,168,.10);
+      border: 1px solid rgba(0,56,168,.16);
+    }
+
+    .actions{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+    .btn{
+      border: 1px solid var(--line);
+      background: var(--paper);
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor:pointer;
+      box-shadow: 0 2px 0 rgba(2,6,23,.03);
+      transition: .2s ease;
+      color: var(--ink);
+    }
+    .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow-soft); }
+    .btn.primary{
+      border: 1px solid rgba(0,56,168,.22);
+      background: linear-gradient(135deg, rgba(0,56,168,.95), rgba(0,56,168,.78));
+      color: #fff;
+    }
+    .btn.ghost{
+      background: transparent;
+      border: 1px solid rgba(17,24,39,.14);
+    }
+
+    /* Mobile nav */
+    .menu-btn{
+      display:none;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-weight: 800;
+      cursor:pointer;
+    }
+    .mobile-panel{
+      display:none;
+      border-top: 1px solid var(--line);
+      padding: 10px 0 14px;
+    }
+    .mobile-panel .nav{
+      flex-direction: column;
+      align-items: stretch;
+      gap: 6px;
+    }
+
+    /* Hero */
+    .hero{
+      padding: 26px 0 10px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .hero-card{
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position: relative;
+    }
+    .hero-card .inner{
+      padding: 22px;
+      display:flex;
+      flex-direction: column;
+      gap: 14px;
+      height: 100%;
+    }
+    .kicker{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      flex-wrap: wrap;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,56,168,.16);
+      background: rgba(0,56,168,.06);
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(0,56,168,.95);
+      white-space: nowrap;
+    }
+    .badge.alt{
+      border: 1px solid rgba(206,17,38,.16);
+      background: rgba(206,17,38,.06);
+      color: rgba(206,17,38,.95);
+    }
+    .badge.neutral{
+      border: 1px solid rgba(17,24,39,.12);
+      background: rgba(17,24,39,.04);
+      color: rgba(11,18,32,.85);
+    }
+
+    .hero-copy p{
+      font-size: 14px;
+      max-width: 60ch;
+    }
+    .hero-cta{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .hero-side{
+      display:grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 18px;
+    }
+
+    /* Decorative “ribbons” */
+    .ribbon{
+      position:absolute;
+      inset: -60px -80px auto auto;
+      width: 240px;
+      height: 240px;
+      border-radius: 70px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.6), transparent 52%),
+                  linear-gradient(135deg, rgba(247,212,23,.95), rgba(247,212,23,.10));
+      transform: rotate(12deg);
+      filter: blur(.2px);
+      opacity: .9;
+      pointer-events:none;
+    }
+    .ribbon.blue{
+      inset: auto -80px -70px auto;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), transparent 52%),
+                  linear-gradient(135deg, rgba(0,56,168,.92), rgba(0,56,168,.10));
+      transform: rotate(-10deg);
+    }
+    .ribbon.red{
+      inset: -70px auto auto -80px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), transparent 52%),
+                  linear-gradient(135deg, rgba(206,17,38,.88), rgba(206,17,38,.10));
+      transform: rotate(-18deg);
+    }
+
+    /* Sections */
+    section{ padding: 18px 0; }
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 14px;
+      margin: 14px 0 12px;
+    }
+    .section-head p{ margin: 0; max-width: 70ch; }
+
+    .grid{
+      display:grid;
+      gap: 14px;
+    }
+    .grid.cols-3{ grid-template-columns: repeat(3, 1fr); }
+    .grid.cols-4{ grid-template-columns: repeat(4, 1fr); }
+    .grid.cols-2{ grid-template-columns: repeat(2, 1fr); }
+
+    .card{
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      overflow:hidden;
+      position: relative;
+    }
+    .card .pad{ padding: 16px; }
+    .meta{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .meta .dot{
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(17,24,39,.25);
+    }
+    .tag{
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: rgba(11,18,32,.72);
+    }
+    .read{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      border-top: 1px solid var(--line);
+      padding: 12px 16px;
+      background: rgba(246,247,251,.7);
+      font-size: 12px;
+      color: rgba(11,18,32,.72);
+    }
+    .read a{
+      font-weight: 800;
+      color: rgba(0,56,168,.95);
+    }
+
+    .stat{
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+    }
+    .stat strong{
+      font-size: 22px;
+      letter-spacing: -0.03em;
+    }
+    .stat p{ margin: 2px 0 0; font-size: 12px; }
+
+    .panel{
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(17,24,39,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.70));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .panel-inner{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .panel-side{
+      padding: 18px;
+      border-right: 1px solid var(--line);
+    }
+    .panel-side:last-child{ border-right: none; }
+    .panel-side h3{ margin-bottom: 8px; }
+    .checklist{
+      margin: 12px 0 0;
+      padding: 0;
+      list-style: none;
+      display:grid;
+      gap: 8px;
+    }
+    .checklist li{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      color: rgba(11,18,32,.78);
+      font-size: 13px;
+    }
+    .tick{
+      width: 18px; height: 18px; border-radius: 6px;
+      background: rgba(0,56,168,.08);
+      border: 1px solid rgba(0,56,168,.18);
+      flex: 0 0 auto;
+      position: relative;
+      margin-top: 1px;
+    }
+    .tick::after{
+      content:"";
+      position:absolute;
+      left: 5px; top: 3px;
+      width: 6px; height: 10px;
+      border-right: 2px solid rgba(0,56,168,.95);
+      border-bottom: 2px solid rgba(0,56,168,.95);
+      transform: rotate(40deg);
+    }
+
+    /* Subscribe */
+    .subscribe{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .field{
+      flex: 1 1 220px;
+      min-width: 220px;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 10px 12px;
+      background: rgba(255,255,255,.95);
+    }
+    .field input{
+      border: none;
+      outline: none;
+      width: 100%;
+      font: inherit;
+      background: transparent;
+      color: var(--ink);
+    }
+    .hint{
+      font-size: 12px;
+      color: rgba(11,18,32,.62);
+      margin-top: 10px;
+    }
+
+    /* FAQ */
+    .faq{
+      display:grid;
+      gap: 10px;
+    }
+    details{
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.96);
+      box-shadow: var(--shadow-soft);
+      overflow:hidden;
+    }
+    summary{
+      cursor:pointer;
+      padding: 14px 16px;
+      font-weight: 800;
+      color: rgba(11,18,32,.90);
+      list-style: none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    summary .chev{
+      width: 18px; height: 18px;
+      border-radius: 8px;
+      border: 1px solid rgba(17,24,39,.12);
+      background: rgba(246,247,251,.8);
+      position: relative;
+      flex: 0 0 auto;
+    }
+    summary .chev::after{
+      content:"";
+      position:absolute;
+      left: 5px; top: 6px;
+      width: 7px; height: 7px;
+      border-right: 2px solid rgba(11,18,32,.70);
+      border-bottom: 2px solid rgba(11,18,32,.70);
+      transform: rotate(45deg);
+      transition: .2s ease;
+    }
+    details[open] summary .chev::after{
+      transform: rotate(-135deg);
+      top: 8px;
+    }
+    details .content{
+      padding: 0 16px 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Footer */
+    footer{
+      padding: 24px 0 34px;
+      margin-top: 10px;
+    }
+    .footer-grid{
+      display:grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 14px;
+      align-items:start;
+    }
+    .footer-card{
+      background: rgba(255,255,255,.92);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-soft);
+      padding: 16px;
+    }
+    .fineprint{
+      font-size: 12px;
+      color: rgba(11,18,32,.62);
+      margin-top: 10px;
+    }
+    .links{
+      display:grid;
+      gap: 8px;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+    .links a{
+      color: rgba(0,56,168,.95);
+      font-weight: 700;
+    }
+
+    /* Modal (Privacy/Terms) */
+    .modal{
+      position: fixed;
+      inset: 0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      background: rgba(2,6,23,.58);
+      z-index: 100;
+    }
+    .modal.open{ display:flex; }
+    .modal-dialog{
+      width: min(920px, 100%);
+      max-height: 86vh;
+      overflow:auto;
+      border-radius: 22px;
+      background: var(--paper);
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 30px 70px rgba(2,6,23,.35);
+    }
+    .modal-head{
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 14px 16px;
+    }
+    .modal-body{
+      padding: 16px;
+    }
+    .modal-body h3{ margin: 18px 0 8px; }
+    .modal-body p{ font-size: 13px; }
+    .pill-row{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .pill{
+      border: 1px solid var(--line);
+      background: rgba(246,247,251,.85);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(11,18,32,.75);
+    }
+
+    /* Utility */
+    .muted{ color: var(--muted); }
+    .divider{
+      height: 1px;
+      background: var(--line);
+      margin: 10px 0;
+    }
+    .callout{
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(206,17,38,.16);
+      background: linear-gradient(180deg, rgba(206,17,38,.06), rgba(255,255,255,.86));
+      box-shadow: var(--shadow-soft);
+      padding: 16px;
+    }
+    .callout strong{ color: rgba(206,17,38,.95); }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .hero-side{ grid-template-rows: auto; grid-template-columns: 1fr 1fr; }
+      .grid.cols-4{ grid-template-columns: repeat(2, 1fr); }
+      .grid.cols-3{ grid-template-columns: repeat(2, 1fr); }
+      .panel-inner{ grid-template-columns: 1fr; }
+      .panel-side{ border-right:none; border-bottom: 1px solid var(--line); }
+      .panel-side:last-child{ border-bottom:none; }
+      .footer-grid{ grid-template-columns: 1fr; }
+      .nav{ display:none; }
+      .menu-btn{ display:inline-flex; }
+    }
+    @media (max-width: 600px){
+      .hero-side{ grid-template-columns: 1fr; }
+      .grid.cols-4, .grid.cols-3, .grid.cols-2{ grid-template-columns: 1fr; }
+      .brand{ min-width: unset; }
+      .topbar-inner{ align-items:flex-start; }
+    }
+
+    /* Accessibility */
+    :focus-visible{
+      outline: 3px solid rgba(247,212,23,.55);
+      outline-offset: 3px;
+      border-radius: 12px;
+    }
+
+    /* Print (for policies/legal) */
+    @media print{
+      .topbar, .actions, .hero-cta, .menu-btn, .mobile-panel, .btn { display:none !important; }
+      body{ background: #fff; }
+      .card, .panel, .footer-card{ box-shadow:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Topbar -->
+  <header class="topbar" role="banner">
+    <div class="wrap">
+      <div class="topbar-inner">
+        <a class="brand" href="#inicio" aria-label="Ir al inicio">
+          <span class="mark" aria-hidden="true"></span>
+          <span>
+            <strong>Cobroscaribian</strong>
+            <small>Blog informativo y análisis editorial sobre Colombia</small>
+          </span>
+        </a>
+
+        <nav class="nav" aria-label="Navegación principal">
+          <a href="#editorial" class="active">Editorial</a>
+          <a href="#categorias">Categorías</a>
+          <a href="#destacados">Destacados</a>
+          <a href="#guia">Guía</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+
+        <div class="actions">
+          <button class="btn ghost" id="openPrivacy" type="button">Política de privacidad</button>
+          <button class="btn primary" id="scrollSubscribe" type="button">Recibir boletín</button>
+          <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobilePanel">Menú</button>
+        </div>
+      </div>
+
+      <div class="mobile-panel" id="mobilePanel">
+        <nav class="nav" aria-label="Navegación móvil">
+          <a href="#editorial">Editorial</a>
+          <a href="#categorias">Categorías</a>
+          <a href="#destacados">Destacados</a>
+          <a href="#guia">Guía</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main id="inicio" class="hero" role="main">
+    <div class="wrap">
+      <div class="hero-grid">
+        <article class="hero-card">
+          <div class="ribbon red" aria-hidden="true"></div>
+          <div class="ribbon blue" aria-hidden="true"></div>
+
+          <div class="inner hero-copy">
+            <div class="kicker">
+              <span class="badge">Información editorial</span>
+              <span class="badge alt">Contexto y fuentes</span>
+              <span class="badge neutral" id="lastUpdated">Actualizado: —</span>
+            </div>
+
+            <h1>Cobroscaribian: Colombia explicada con rigor, claridad y perspectiva regional</h1>
+            <p>
+              Publicamos artículos informativos sobre cultura, economía, regiones, turismo responsable, historia y actualidad.
+              Nuestro enfoque es educativo: priorizamos contexto, metodología y lectura crítica. No ofrecemos servicios financieros,
+              no vendemos productos, no solicitamos pagos; el sitio es estrictamente informativo.
+            </p>
+
+            <div class="hero-cta">
+              <a class="btn primary" href="#destacados">Leer artículos destacados</a>
+              <a class="btn" href="#guia">Cómo usamos fuentes</a>
+              <button class="btn ghost" id="openTerms" type="button">Términos de uso</button>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="grid cols-3">
+              <div class="card">
+                <div class="pad stat">
+                  <div>
+                    <strong>Guías</strong>
+                    <p>Contenido práctico para entender regiones, contexto y conceptos.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="pad stat">
+                  <div>
+                    <strong>Análisis</strong>
+                    <p>Notas explicativas con estructura: datos, fuentes y conclusiones.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="pad stat">
+                  <div>
+                    <strong>Lectura crítica</strong>
+                    <p>Herramientas para evaluar información y evitar desinformación.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <aside class="hero-side" aria-label="Panel editorial">
+          <div class="card">
+            <div class="pad">
+              <div class="meta">
+                <span class="tag">Nota editorial</span>
+                <span class="dot" aria-hidden="true"></span>
+                <span class="muted" style="font-size:12px;">Transparencia</span>
+              </div>
+              <h2>Qué es Cobroscaribian</h2>
+              <p>
+                Un blog informativo enfocado en Colombia: explicamos temas con lenguaje claro, citamos fuentes cuando aplica,
+                y distinguimos entre hechos, contexto y opinión editorial.
+              </p>
+              <div class="read">
+                <span>Enfoque: educación e información</span>
+                <a href="#editorial">Ver manifiesto</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="pad">
+              <div class="meta">
+                <span class="tag">Para lectores</span>
+                <span class="dot" aria-hidden="true"></span>
+                <span class="muted" style="font-size:12px;">Lectura rápida</span>
+              </div>
+              <h2>Cómo aprovechar el sitio</h2>
+              <p>
+                Usa las categorías para profundizar, revisa los recuadros de “fuentes y método”, y guarda los artículos
+                de referencia para consulta. Si algo requiere actualización, lo señalamos.
+              </p>
+              <div class="read">
+                <span>Tiempo recomendado: 6 a 12 min por artículo</span>
+                <a href="#categorias">Explorar categorías</a>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="callout" style="margin-top:18px;">
+        <strong>Aclaración</strong>
+        <p style="margin-top:6px;">
+          Cobroscaribian es un medio informativo. No ofrece asesoría legal, financiera o médica. Si necesitas ayuda profesional,
+          consulta a un experto acreditado.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Editorial -->
+  <section id="editorial">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>Manifiesto editorial</h2>
+          <p>Principios de calidad para lectores que buscan claridad sobre Colombia, sin sensacionalismo y con estructura.</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-inner">
+          <div class="panel-side">
+            <h3>Cómo construimos los artículos</h3>
+            <p>
+              Cada texto busca responder tres preguntas: qué ocurre, por qué importa y cómo se conecta con el contexto regional.
+              Cuando se usan datos, se describe la procedencia, el alcance y las limitaciones.
+            </p>
+            <ul class="checklist">
+              <li><span class="tick" aria-hidden="true"></span><span>Separación clara entre hechos, contexto y opinión editorial.</span></li>
+              <li><span class="tick" aria-hidden="true"></span><span>Definiciones accesibles y secciones para lectura por partes.</span></li>
+              <li><span class="tick" aria-hidden="true"></span><span>Correcciones visibles: si cambiamos un texto, lo indicamos.</span></li>
+            </ul>
+          </div>
+
+          <div class="panel-side">
+            <h3>Qué no hacemos</h3>
+            <p>
+              No publicamos promesas irreales, ni contenido diseñado para confundir. No solicitamos pagos, no ofrecemos préstamos,
+              ni vendemos “servicios de cobro”. El nombre del blog es editorial y no implica actividad comercial.
+            </p>
+            <ul class="checklist">
+              <li><span class="tick" aria-hidden="true"></span><span>No recopilamos datos sensibles para “segmentar” lectores.</span></li>
+              <li><span class="tick" aria-hidden="true"></span><span>No publicamos desinformación ni titulares engañosos.</span></li>
+              <li><span class="tick" aria-hidden="true"></span><span>No ocultamos información de contacto o identidad editorial.</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section id="categorias">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>Categorías principales</h2>
+          <p>Rutas de lectura para explorar Colombia desde lo regional, lo histórico y lo actual.</p>
+        </div>
+      </div>
+
+      <div class="grid cols-4">
+        <div class="card">
+          <div class="pad">
+            <div class="meta"><span class="tag">Regiones</span><span class="dot"></span><span class="muted" style="font-size:12px;">Caribe, Andina, Pacífico</span></div>
+            <h3>Cartografías culturales</h3>
+            <p>Identidades regionales, tradiciones, gastronomía y dinámicas sociales con enfoque comparativo.</p>
+          </div>
+          <div class="read"><span>Lecturas introductorias</span><a href="#destacados">Ver destacados</a></div>
+        </div>
+
+        <div class="card">
+          <div class="pad">
+            <div class="meta"><span class="tag">Economía</span><span class="dot"></span><span class="muted" style="font-size:12px;">Conceptos claros</span></div>
+            <h3>Economía para ciudadanos</h3>
+            <p>Indicadores, empleo, precios y finanzas públicas explicados sin tecnicismos innecesarios.</p>
+          </div>
+          <div class="read"><span>Guías y glosarios</span><a href="#guia">Ir a la guía</a></div>
+        </div>
+
+        <div class="card">
+          <div class="pad">
+            <div class="meta"><span class="tag">Historia</span><span class="dot"></span><span class="muted" style="font-size:12px;">Cronologías</span></div>
+            <h3>Claves históricas</h3>
+            <p>Procesos y periodos que ayudan a entender debates actuales, con líneas de tiempo y contexto.</p>
+          </div>
+          <div class="read"><span>Contexto verificable</span><a href="#destacados">Explorar</a></div>
+        </div>
+
+        <div class="card">
+          <div class="pad">
+            <div class="meta"><span class="tag">Turismo responsable</span><span class="dot"></span><span class="muted" style="font-size:12px;">Buenas prácticas</span></div>
+            <h3>Viajar con criterio</h3>
+            <p>Consejos culturales y ambientales para recorrer Colombia con respeto por comunidades y ecosistemas.</p>
+          </div>
+          <div class="read"><span>Listas y recomendaciones</span><a href="#destacados">Ver rutas</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured -->
+  <section id="destacados">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>Artículos destacados</h2>
+          <p>Ejemplos de cómo estructuramos la información: resumen, desarrollo, recuadro de método y puntos clave.</p>
+        </div>
+        <button class="btn" id="shuffleBtn" type="button">Reordenar destacados</button>
+      </div>
+
+      <div class="grid cols-3" id="featuredGrid">
+        <!-- JS will populate -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Reader Guide -->
+  <section id="guia">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>Guía de lectura y fuentes</h2>
+          <p>Transparencia editorial: cómo leer un artículo informativo y cómo evaluamos información.</p>
+        </div>
+      </div>
+
+      <div class="grid cols-2">
+        <div class="card">
+          <div class="pad">
+            <div class="meta"><span class="tag">Método</span><span class="dot"></span><span class="muted" style="font-size:12px;">Estructura</span></div>
+            <h3>Cómo está armado cada texto</h3>
+            <p>
+              Iniciamos con un resumen de contexto, seguimos con el desarrollo por secciones y cerramos con conclusiones
+              y un recuadro de “qué sabemos / qué falta por confirmar”.
+            </p>
+            <ul class="checklist">
+              <li><span class="tick"></span><span>Resumen para lectura rápida y definición de términos clave.</span></li>
+              <li><span class="tick"></span><span>Riesgos de interpretación: qué podría confundirse y por qué.</span></li>
+              <li><span class="tick"></span><span>Puntos de verificación: datos, fechas, referencias y alcance.</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="pad">
+            <div class="meta"><span class="tag">Lectura crítica</span><span class="dot"></span><span class="muted" style="font-size:12px;">Buenas prácticas</span></div>
+            <h3>Checklist para evaluar información</h3>
+            <p>
+              Antes de compartir un dato o una afirmación, revisa: fuente primaria, fecha, contexto, sesgos y si hay confirmación
+              independiente. Si falta algo, lo marcamos.
+            </p>
+            <div class="divider"></div>
+            <div class="pill-row" aria-label="Indicadores">
+              <span class="pill">Fecha y vigencia</span>
+              <span class="pill">Definiciones</span>
+              <span class="pill">Contexto regional</span>
+              <span class="pill">Limitaciones</span>
+              <span class="pill">Contraste</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:14px;">
+        <div class="panel-inner">
+          <div class="panel-side">
+            <h3>Boletín informativo</h3>
+            <p>
+              Recibe una selección editorial semanal con lecturas recomendadas. Puedes darte de baja cuando quieras.
+              No vendemos tu información.
+            </p>
+
+            <form class="subscribe" id="newsletterForm">
+              <div class="field">
+                <input type="text" name="name" placeholder="Nombre" autocomplete="name" required />
+              </div>
+              <div class="field">
+                <input type="email" name="email" placeholder="Correo electrónico" autocomplete="email" required />
+              </div>
+              <button class="btn primary" type="submit">Suscribirme</button>
+            </form>
+            <div class="hint" id="newsletterHint">
+              Al suscribirte aceptas nuestra Política de Privacidad y Términos de Uso. Enviaremos únicamente contenido informativo.
+            </div>
+          </div>
+
+          <div class="panel-side">
+            <h3>Transparencia y contacto editorial</h3>
+            <p>
+              Si detectas un error o deseas proponer un tema, escríbenos. Valoramos correcciones verificables
+              y aportes con fuentes.
+            </p>
+            <ul class="checklist">
+              <li><span class="tick"></span><span>Correcciones con evidencia y fecha: se registran y se publican.</span></li>
+              <li><span class="tick"></span><span>Propuestas de tema: enfoque regional y valor educativo.</span></li>
+              <li><span class="tick"></span><span>Respuestas: priorizamos mensajes claros y con contexto.</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>Preguntas frecuentes</h2>
+          <p>Respuestas rápidas sobre el propósito del sitio, uso de contenido y privacidad.</p>
+        </div>
+      </div>
+
+      <div class="faq">
+        <details>
+          <summary>¿Cobroscaribian ofrece servicios de cobro, préstamos o productos? <span class="chev" aria-hidden="true"></span></summary>
+          <div class="content">
+            No. Este sitio es un blog informativo sobre Colombia. No ofrecemos servicios financieros, legales o de cobranza,
+            no vendemos productos, ni solicitamos pagos.
+          </div>
+        </details>
+
+        <details>
+          <summary>¿Cómo manejan datos personales y el boletín? <span class="chev" aria-hidden="true"></span></summary>
+          <div class="content">
+            Solo solicitamos lo mínimo para enviar el boletín (nombre y correo). Puedes darte de baja cuando quieras.
+            No vendemos tu información y aplicamos medidas de seguridad razonables.
+          </div>
+        </details>
+
+        <details>
+          <summary>¿Puedo reutilizar el contenido? <span class="chev" aria-hidden="true"></span></summary>
+          <div class="content">
+            Puedes citar fragmentos breves indicando la fuente y un enlace al artículo original. Para reproducciones extensas,
+            solicita autorización por escrito mediante el formulario de contacto.
+          </div>
+        </details>
+
+        <details>
+          <summary>¿Publican contenido patrocinado? <span class="chev" aria-hidden="true"></span></summary>
+          <div class="content">
+            Si existiera contenido patrocinado en el futuro, se marcaría de forma clara. El objetivo es preservar
+            la transparencia editorial.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contacto">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>Contacto</h2>
+          <p>Canal para sugerencias editoriales, correcciones verificables y solicitudes de uso de contenido.</p>
+        </div>
+      </div>
+
+      <div class="grid cols-2">
+        <div class="card">
+          <div class="pad">
+            <div class="meta"><span class="tag">Formulario</span><span class="dot"></span><span class="muted" style="font-size:12px;">Respuesta editorial</span></div>
+            <h3>Escríbenos</h3>
+            <p>Completa el formulario y describe el motivo con claridad. Evita incluir datos sensibles.</p>
+
+            <form id="contactForm" style="margin-top:12px; display:grid; gap:10px;">
+              <div class="field">
+                <input type="text" name="fullname" placeholder="Nombre y apellido" autocomplete="name" required />
+              </div>
+              <div class="field">
+                <input type="email" name="email" placeholder="Correo electrónico" autocomplete="email" required />
+              </div>
+              <div class="field" style="align-items:flex-start;">
+                <input type="text" name="subject" placeholder="Asunto (ej: corrección, sugerencia, permiso)" required />
+              </div>
+              <div class="field" style="align-items:flex-start;">
+                <textarea name="message" placeholder="Mensaje" required style="width:100%; border:none; outline:none; resize:vertical; min-height:110px; font:inherit; background:transparent; color:var(--ink);"></textarea>
+              </div>
+              <button class="btn primary" type="submit">Enviar</button>
+              <div class="hint" id="contactHint">Este formulario es demostrativo (front-end). Integra un backend para envíos reales.</div>
+            </form>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="pad">
+            <div class="meta"><span class="tag">Información del sitio</span><span class="dot"></span><span class="muted" style="font-size:12px;">Transparencia</span></div>
+            <h3>Datos institucionales</h3>
+            <p>
+              Cobroscaribian es un blog informativo. Para transparencia y cumplimiento, mantenemos accesibles los documentos
+              de privacidad, términos y el propósito editorial.
+            </p>
+            <div class="divider"></div>
+            <div class="grid cols-2">
+              <div class="card">
+                <div class="pad">
+                  <h3 style="margin-bottom:6px;">Políticas</h3>
+                  <p style="font-size:13px;">Privacidad, cookies (si aplica) y tratamiento de datos.</p>
+                  <div class="read"><span>Documento legal</span><a href="#" id="openPrivacy2">Abrir</a></div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="pad">
+                  <h3 style="margin-bottom:6px;">Términos</h3>
+                  <p style="font-size:13px;">Uso del contenido, limitaciones y responsabilidad.</p>
+                  <div class="read"><span>Documento legal</span><a href="#" id="openTerms2">Abrir</a></div>
+                </div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <p class="fineprint">
+              Consejo: si vas a pautar en Google Ads, asegura que el dominio tenga información de contacto clara, páginas legales
+              accesibles desde el footer y contenido coherente con el anuncio.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer role="contentinfo">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-card">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span class="mark" aria-hidden="true" style="width:34px;height:34px;border-radius:12px;"></span>
+            <div>
+              <strong style="font-weight:900;">Cobroscaribian</strong>
+              <div class="fineprint">Blog informativo sobre Colombia. Contenido editorial con enfoque educativo.</div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <p class="fineprint">
+            La información aquí presentada tiene fines informativos. No constituye asesoría profesional.
+          </p>
+          <p class="fineprint" id="copyrightLine"></p>
+        </div>
+
+        <div class="footer-card">
+          <strong>Enlaces</strong>
+          <div class="links">
+            <a href="#destacados">Artículos destacados</a>
+            <a href="#categorias">Categorías</a>
+            <a href="#guia">Guía de lectura</a>
+            <a href="#contacto">Contacto</a>
+          </div>
+        </div>
+
+        <div class="footer-card">
+          <strong>Legal</strong>
+          <div class="links">
+            <a href="#" id="openPrivacyFooter">Política de privacidad</a>
+            <a href="#" id="openTermsFooter">Términos de uso</a>
+            <a href="#" id="openCookiesFooter">Cookies (si aplica)</a>
+          </div>
+          <p class="fineprint">
+            Para mejorar la experiencia, podemos usar analítica básica sin identificarte personalmente. Revisa la política para más detalles.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-dialog">
+      <div class="modal-head">
+        <div>
+          <strong id="modalTitle">Documento</strong>
+          <div class="fineprint" id="modalSubtitle" style="margin:0;">Información legal y de transparencia</div>
+        </div>
+        <button class="btn" id="closeModal" type="button">Cerrar</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- JS inject -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Utilities
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    // Date stamps
+    (function initDates(){
+      const now = new Date();
+      const fmt = new Intl.DateTimeFormat('es-CO', { year:'numeric', month:'long', day:'2-digit' });
+      $("#lastUpdated").textContent = "Actualizado: " + fmt.format(now);
+      $("#copyrightLine").textContent = "© " + now.getFullYear() + " Cobroscaribian. Todos los derechos reservados.";
+    })();
+
+    // Mobile menu toggle
+    (function mobileMenu(){
+      const btn = $("#menuBtn");
+      const panel = $("#mobilePanel");
+      if(!btn || !panel) return;
+
+      btn.addEventListener("click", () => {
+        const isOpen = panel.style.display === "block";
+        panel.style.display = isOpen ? "none" : "block";
+        btn.setAttribute("aria-expanded", String(!isOpen));
+      });
+
+      // Close on navigation click
+      $$("#mobilePanel a").forEach(a => {
+        a.addEventListener("click", () => {
+          panel.style.display = "none";
+          btn.setAttribute("aria-expanded", "false");
+        });
+      });
+    })();
+
+    // Smooth scroll to subscribe
+    $("#scrollSubscribe")?.addEventListener("click", () => {
+      $("#guia")?.scrollIntoView({ behavior:"smooth", block:"start" });
+      setTimeout(() => $("input[name='email']")?.focus(), 500);
+    });
+
+    // Featured content (professional, informative)
+    const featured = [
+      {
+        tag: "Regiones",
+        title: "Caribe colombiano: economía cultural, puertos y tejido social",
+        excerpt: "Un recorrido por dinámicas del Caribe: comercio, música, gastronomía y cómo las ciudades portuarias impactan la vida cotidiana. Incluye un recuadro de conceptos y límites de interpretación.",
+        readTime: "8–10 min",
+        method: "Método: contexto regional + definiciones + fuentes sugeridas."
+      },
+      {
+        tag: "Economía",
+        title: "Inflación, salarios y canasta familiar: cómo leer cifras sin caer en conclusiones rápidas",
+        excerpt: "Explicamos diferencias entre índices, variación anual y percepciones de precio. Un texto para entender titulares económicos con criterios de lectura crítica.",
+        readTime: "9–12 min",
+        method: "Método: glosario + ejemplos + advertencias de sesgo."
+      },
+      {
+        tag: "Historia",
+        title: "Hitos del siglo XX en Colombia: líneas de tiempo para comprender debates actuales",
+        excerpt: "Una guía narrativa con periodización y eventos que suelen aparecer en discusiones públicas. Diseñada para lectores que quieren orden y referencias.",
+        readTime: "10–14 min",
+        method: "Método: cronología + contexto + notas de alcance."
+      },
+      {
+        tag: "Turismo responsable",
+        title: "Viajar a Colombia con respeto: prácticas culturales y ambientales que sí importan",
+        excerpt: "Recomendaciones para visitantes y lectores locales: cuidado de ecosistemas, interacción con comunidades y decisiones de consumo responsable.",
+        readTime: "7–9 min",
+        method: "Método: checklist + principios de mínimo impacto."
+      },
+      {
+        tag: "Actualidad",
+        title: "Cómo detectar desinformación: señales comunes y verificación básica en temas nacionales",
+        excerpt: "Un marco práctico para evaluar afirmaciones virales: fecha, fuente primaria, evidencia y consistencia. Incluye plantillas de verificación para uso personal.",
+        readTime: "6–8 min",
+        method: "Método: criterios de verificación + ejemplos hipotéticos."
+      },
+      {
+        tag: "Cultura",
+        title: "Música y memoria: por qué los ritmos regionales cuentan historias de territorio",
+        excerpt: "Una lectura cultural que conecta tradiciones musicales con migración, economía local y narrativas comunitarias, sin folclorizar ni simplificar.",
+        readTime: "8–11 min",
+        method: "Método: enfoque cultural + contexto + glosario."
+      }
+    ];
+
+    function renderFeatured(items){
+      const grid = $("#featuredGrid");
+      if(!grid) return;
+      grid.innerHTML = items.map(item => `
+        <article class="card">
+          <div class="pad">
+            <div class="meta">
+              <span class="tag">${escapeHtml(item.tag)}</span>
+              <span class="dot" aria-hidden="true"></span>
+              <span class="muted" style="font-size:12px;">${escapeHtml(item.readTime)}</span>
+            </div>
+            <h3 style="margin-bottom:8px;">${escapeHtml(item.title)}</h3>
+            <p>${escapeHtml(item.excerpt)}</p>
+            <div class="divider"></div>
+            <p style="font-size:12px; color: rgba(11,18,32,.72); margin:0;">
+              <strong style="color: rgba(0,56,168,.95);">Recuadro:</strong> ${escapeHtml(item.method)}
+            </p>
+          </div>
+          <div class="read">
+            <span>Lectura editorial</span>
+            <a href="#contacto" aria-label="Proponer tema sobre: ${escapeHtml(item.title)}">Proponer tema</a>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function shuffle(array){
+      const arr = array.slice();
+      for(let i = arr.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    renderFeatured(featured);
+
+    $("#shuffleBtn")?.addEventListener("click", () => {
+      renderFeatured(shuffle(featured));
+    });
+
+    // Newsletter (front-end demo)
+    $("#newsletterForm")?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const form = e.currentTarget;
+      const data = new FormData(form);
+      const name = (data.get("name") || "").toString().trim();
+      const email = (data.get("email") || "").toString().trim();
+
+      const hint = $("#newsletterHint");
+      if(!name || !email){
+        hint.textContent = "Por favor completa nombre y correo para suscribirte.";
+        return;
+      }
+      hint.textContent = "Solicitud recibida. Para envíos reales, integra un proveedor de email marketing o un backend seguro.";
+      form.reset();
+    });
+
+    // Contact (front-end demo)
+    $("#contactForm")?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const hint = $("#contactHint");
+      hint.textContent = "Mensaje listo para envío. Este formulario es demostrativo; conecta un backend para envíos reales y registro de consentimientos.";
+      e.currentTarget.reset();
+    });
+
+    // Modal content
+    const modal = $("#modal");
+    const modalTitle = $("#modalTitle");
+    const modalSubtitle = $("#modalSubtitle");
+    const modalBody = $("#modalBody");
+
+    function openModal(title, subtitle, html){
+      modalTitle.textContent = title;
+      modalSubtitle.textContent = subtitle;
+      modalBody.innerHTML = html;
+      modal.classList.add("open");
+      $("#closeModal")?.focus();
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal(){
+      modal.classList.remove("open");
+      modalBody.innerHTML = "";
+      document.body.style.overflow = "";
+    }
+
+    $("#closeModal")?.addEventListener("click", closeModal);
+    modal?.addEventListener("click", (e) => {
+      if(e.target === modal) closeModal();
+    });
+    window.addEventListener("keydown", (e) => {
+      if(e.key === "Escape" && modal.classList.contains("open")) closeModal();
+    });
+
+    const privacyHtml = `
+      <p>
+        Esta Política de Privacidad describe cómo Cobroscaribian trata la información en este sitio informativo.
+        Si implementas analítica, formularios activos o publicidad, ajusta este texto a tu realidad y jurisdicción.
+      </p>
+
+      <h3>1. Responsable del tratamiento</h3>
+      <p>
+        Cobroscaribian (sitio editorial). Para contacto, utiliza el formulario de esta página. Si operas con razón social,
+        dirección o correo, inclúyelos aquí.
+      </p>
+
+      <h3>2. Datos que podríamos recopilar</h3>
+      <p>
+        (a) Datos de suscripción al boletín: nombre y correo. (b) Datos de contacto: nombre, correo y contenido del mensaje.
+        (c) Datos técnicos: navegador, dispositivo, páginas vistas, de forma agregada si se usa analítica.
+      </p>
+
+      <h3>3. Finalidades</h3>
+      <p>
+        Enviar el boletín informativo, responder solicitudes, mejorar contenidos y medir rendimiento de páginas (si se usa analítica).
+        No usamos los datos para ofrecer servicios de cobro, préstamos ni productos.
+      </p>
+
+      <h3>4. Base legal y consentimiento</h3>
+      <p>
+        El envío del boletín se fundamenta en tu consentimiento. Puedes retirar tu consentimiento en cualquier momento mediante el enlace
+        de baja (si se implementa) o solicitándolo por contacto.
+      </p>
+
+      <h3>5. Conservación</h3>
+      <p>
+        Conservamos datos el tiempo necesario para las finalidades descritas. Los mensajes de contacto pueden guardarse para historial editorial
+        y control de calidad.
+      </p>
+
+      <h3>6. Compartición y encargados</h3>
+      <p>
+        Podemos usar proveedores (hosting, analítica, email) que actúan como encargados. No vendemos tu información.
+        Solo compartimos lo necesario para operar el sitio.
+      </p>
+
+      <h3>7. Seguridad</h3>
+      <p>
+        Aplicamos medidas razonables: control de acceso, cifrado en tránsito (HTTPS) y buenas prácticas de almacenamiento.
+      </p>
+
+      <h3>8. Derechos</h3>
+      <p>
+        Puedes solicitar acceso, actualización o eliminación de tus datos personales. Responderemos en plazos razonables según la normativa aplicable.
+      </p>
+
+      <h3>9. Cambios</h3>
+      <p>
+        Podemos actualizar esta política. Publicaremos la versión vigente con fecha de actualización.
+      </p>
+      <div class="pill-row">
+        <span class="pill">Transparencia</span>
+        <span class="pill">Minimización</span>
+        <span class="pill">Seguridad razonable</span>
+        <span class="pill">Control del usuario</span>
+      </div>
+    `;
+
+    const termsHtml = `
+      <p>
+        Estos Términos regulan el uso del sitio Cobroscaribian. Al navegar, aceptas estas condiciones.
+      </p>
+
+      <h3>1. Propósito del sitio</h3>
+      <p>
+        Cobroscaribian es un blog informativo sobre Colombia. El contenido es editorial y educativo. No constituye asesoría profesional.
+      </p>
+
+      <h3>2. Uso permitido</h3>
+      <p>
+        Puedes leer, compartir enlaces y citar fragmentos breves atribuyendo la fuente. Queda prohibida la reproducción masiva sin autorización.
+      </p>
+
+      <h3>3. Exactitud y actualizaciones</h3>
+      <p>
+        Buscamos precisión, pero la información puede cambiar. Si un artículo requiere corrección, lo actualizamos y lo indicamos.
+      </p>
+
+      <h3>4. Enlaces externos</h3>
+      <p>
+        Podemos enlazar a terceros para referencia. No controlamos su contenido ni sus prácticas de privacidad.
+      </p>
+
+      <h3>5. Limitación de responsabilidad</h3>
+      <p>
+        No respondemos por decisiones tomadas exclusivamente con base en el contenido del sitio. Para casos específicos, consulta profesionales.
+      </p>
+
+      <h3>6. Contacto y reclamaciones</h3>
+      <p>
+        Puedes escribirnos desde la sección de contacto. Priorizamos correcciones verificables y solicitudes claras.
+      </p>
+
+      <div class="pill-row">
+        <span class="pill">Uso informativo</span>
+        <span class="pill">Atribución</span>
+        <span class="pill">Correcciones</span>
+        <span class="pill">Enlaces externos</span>
+      </div>
+    `;
+
+    const cookiesHtml = `
+      <p>
+        Esta sección aplica si implementas cookies o tecnologías similares (analítica, personalización o medición).
+        Si no usas cookies, indícalo explícitamente y desactiva cualquier script de terceros.
+      </p>
+
+      <h3>1. Qué son cookies</h3>
+      <p>
+        Son pequeños archivos que se almacenan en tu navegador para recordar preferencias o medir rendimiento.
+      </p>
+
+      <h3>2. Tipos</h3>
+      <p>
+        (a) Esenciales: funcionamiento básico. (b) Analítica: medición agregada. (c) Preferencias: idioma o ajustes.
+      </p>
+
+      <h3>3. Control</h3>
+      <p>
+        Puedes administrar cookies desde tu navegador. Si implementas un banner de consentimiento, ofrece opciones claras.
+      </p>
+    `;
+
+    function bindOpeners(){
+      const openPrivacyIds = ["openPrivacy","openPrivacy2","openPrivacyFooter"];
+      const openTermsIds = ["openTerms","openTerms2","openTermsFooter"];
+      const openCookiesIds = ["openCookiesFooter"];
+
+      openPrivacyIds.forEach(id => {
+        const el = $("#" + id);
+        el?.addEventListener("click", (e) => {
+          e.preventDefault();
+          openModal("Política de privacidad", "Tratamiento de datos y transparencia", privacyHtml);
+        });
+      });
+
+      openTermsIds.forEach(id => {
+        const el = $("#" + id);
+        el?.addEventListener("click", (e) => {
+          e.preventDefault();
+          openModal("Términos de uso", "Condiciones de acceso y utilización", termsHtml);
+        });
+      });
+
+      openCookiesIds.forEach(id => {
+        const el = $("#" + id);
+        el?.addEventListener("click", (e) => {
+          e.preventDefault();
+          openModal("Cookies (si aplica)", "Información sobre cookies y control del usuario", cookiesHtml);
+        });
+      });
+    }
+    bindOpeners();
+
+    // Highlight active nav item on scroll
+    (function scrollSpy(){
+      const sections = ["editorial","categorias","destacados","guia","faq","contacto"].map(id => $("#" + id)).filter(Boolean);
+      const navLinks = $$(".nav a").filter(a => a.getAttribute("href")?.startsWith("#"));
+      const byId = new Map(navLinks.map(a => [a.getAttribute("href").slice(1), a]));
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            navLinks.forEach(a => a.classList.remove("active"));
+            const id = entry.target.id;
+            const link = byId.get(id);
+            link?.classList.add("active");
+          }
+        });
+      }, { root: null, threshold: 0.3 });
+
+      sections.forEach(s => io.observe(s));
+    })();
+  </script>
+</body>
+</html>
